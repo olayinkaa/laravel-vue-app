@@ -190,25 +190,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <!--  -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <router-link to="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Management
                 <i class="right fa fa-angle-left"></i>
               </p>
-            </a>
+            </router-link>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <router-link to="#" class="nav-link">
                   <i class="fas fa-circle-o nav-icon"></i>
                   <p>Active Page</p>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-lin to="#" class="nav-link">
                   <i class="fas fa-circle-o nav-icon"></i>
                   <p>Inactive Page</p>
-                </a>
+                </router-lin>
               </li>
             </ul>
           </li>
