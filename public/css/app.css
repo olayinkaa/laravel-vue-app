@@ -30505,6 +30505,6 @@ a.text-dark:focus {
 
 .router-link-exact-active {
   background-color: rgba(34, 9, 179, 0.918);
-  color: white;
+  color: white !important;
 }
 
