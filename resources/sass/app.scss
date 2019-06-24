@@ -23,6 +23,16 @@ $fa-font-path:"../webfonts";
 
 .router-link-exact-active {
 
-    background-color: rgba(34, 9, 179, 0.918);
+    background-color: $blue;
     color: white !important;
+}
+
+.red {
+
+    color: $red;
+}
+
+.blue {
+
+    color: $blue;
 }
