@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper" id="app">
+<div class="wrapper" id="app" >
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -264,6 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- content goes here -->
 
             <router-view></router-view>
+            
      
       </div>
     </div>

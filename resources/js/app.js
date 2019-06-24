@@ -11,7 +11,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-const routes = [
+let routes = [
 
     { path: '/dashboard', component: require('./components/Dashboard.vue') },
     { path: '/users', component: require('./components/Users.vue') },
