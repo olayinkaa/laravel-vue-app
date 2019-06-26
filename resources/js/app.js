@@ -8,6 +8,15 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.Form = Form
+
+import {  HasError, AlertError, AlertErrors, AlertSuccess } from 'vform'
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+Vue.component(AlertErrors.name, AlertErrors)
+Vue.component(AlertSuccess.name, AlertSuccess)
+
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -61,5 +70,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router
+
 
 });
