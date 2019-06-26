@@ -8,24 +8,31 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+import DashboardComponent from './components/DashboardComponent.vue'
+import ProfileComponent from './components/ProfileComponent.vue'
+import UsersComponent from './components/UsersComponent.vue'
 
 let routes = [
 
-    { path: '/dashboard', component: require('./components/Dashboard.vue') },
-    { path: '/users', component: require('./components/Users.vue') },
-    { path: '/profile', component: require('./components/Profile.vue') }
+    { path: '/dashboard', component:DashboardComponent },
+    { path: '/profile', component: ProfileComponent },
+    { path: '/users', component: UsersComponent }
+    // { path: '/profile', component: require('./components/Profile.vue') }
 
-  ]
+  ];
 
 
 const router = new VueRouter({
 
     mode: 'history',
-    routes // short for `routes: routes`
 
-  })
+    routes// short for `routes: routes`
+
+  });
 
 /**
  * The following block of code may be used to automatically register your
@@ -38,7 +45,12 @@ const router = new VueRouter({
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('dashboard', require('./components/Dashboard.vue').default);
+// Vue.component('profile', require('./components/Profile.vue').default);
+// Vue.component('users', require('./components/Users.vue').default);
+// Vue.component('dashboard', require('./components/Dashboard.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -49,4 +61,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router
+
 });

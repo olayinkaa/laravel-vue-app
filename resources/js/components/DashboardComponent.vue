@@ -16,8 +16,6 @@
 
 <script>
     export default {
-        
-        name:"dashboard-component",
         mounted() {
             console.log('Component mounted.')
         }

@@ -9,17 +9,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <title>CleverJames</title>
+  <script>window.Laravel = { csrfToken: '{{ csrf_token()}}' }</script>
 
   <!-- <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css"> -->
   <!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
 
-  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel="stylesheet" href="/css/app.css"> -->
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+  <title>CleverJames</title>
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" >
 <div class="wrapper" id="app" >
 
   <!-- Navbar -->
@@ -48,6 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
     </form>
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -205,10 +207,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-lin to="#" class="nav-link">
+                <router-link to="#" class="nav-link">
                   <i class="fas fa-circle-o nav-icon"></i>
                   <p>Inactive Page</p>
-                </router-lin>
+                </router-link>
               </li>
             </ul>
           </li>
@@ -265,7 +267,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <router-view></router-view>
             
-     
+            
       </div>
     </div>
     <!-- /.content -->
@@ -300,7 +302,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <!-- <script src="dist/js/adminlte.min.js"></script> -->
 
-<script src="/js/app.js"></script>
-
+<!-- <script src="/js/app.js"></script> -->
+<!-- <script src=" {{ asset('js/app.js') }} "></script> -->
+<script src=" {{ mix('js/app.js') }} "></script>
 </body>
 </html>
