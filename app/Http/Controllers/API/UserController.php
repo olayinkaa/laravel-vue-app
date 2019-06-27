@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         //
+        return User::latest()->paginate(10);
     }
 
     /**
@@ -26,7 +27,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // server validation
+        $this->validate($request, [
+
+                'name' =>'required|string|max:191',
+                'email' =>'required|string|email|unique:users',
+                'password' =>'required|min:4'
+        ]);
+
+        // store data from UserComponents in the "User" fillable MODEL
         return User::create([
 
             'name'=> $request['name'],

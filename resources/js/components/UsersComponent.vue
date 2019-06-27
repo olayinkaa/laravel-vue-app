@@ -21,11 +21,11 @@
                                     <th>Type</th>
                                     <th>Modify</th>
                                 </tr>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>ibrahimolayinkaa@gmail.com</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td><span class="tag tag-success">{{user.type}}</span></td>
                                     <td>
                                         <a href="">
                                             <i class="fas fa-edit fa-2x blue"></i>
@@ -103,12 +103,16 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
     export default {
 
         data(){
 
             return{
-                
+
+                users: {},          
                 form: new Form({
 
                     name:'',
@@ -123,14 +127,27 @@
         },
         methods : {
 
+                LoadUsers(){
+
+                        axios.get('api/user').then((response=>{
+
+                            this.users = response.data
+                        });
+                },
                 CreateUser(){
 
                     this.form.post('api/user');
                 }
         },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+
+            this.LoadUsers();
         }
+
+
+
+
+        // end-----------------
     }
 </script>
 <style scoped>
