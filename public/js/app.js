@@ -1930,6 +1930,11 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  methods: {
+    CreateUser: function CreateUser() {
+      this.form.post('api/user');
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -39059,10 +39064,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.login($event)
-                    },
-                    keydown: function($event) {
-                      return _vm.form.onKeydown($event)
+                      return _vm.CreateUser($event)
                     }
                   }
                 },
@@ -39411,7 +39413,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Create")]
       )
     ])

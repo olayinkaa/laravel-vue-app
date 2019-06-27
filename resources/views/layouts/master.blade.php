@@ -8,8 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <script>window.Laravel = { csrfToken: '{{ csrf_token()}}' }</script>
+  <!-- <script>window.Laravel = { csrfToken: '{{ csrf_token()}}' }</script> -->
 
   <!-- <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css"> -->
   <!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
@@ -193,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!--  -->
           <li class="nav-item has-treeview menu-open">
             <router-link to="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
+              <i class="nav-icon fas fa-cog green"></i>
               <p>
                 Management
                 <i class="right fa fa-angle-left"></i>
