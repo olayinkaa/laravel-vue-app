@@ -1809,9 +1809,84 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UsersComponent.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\resources\\js\\components\\UsersComponent.vue: Unexpected token, expected \",\" (74:4)\n\n\u001b[0m \u001b[90m 72 | \u001b[39m        \u001b[0m\n\u001b[0m \u001b[90m 73 | \u001b[39m    }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 | \u001b[39m    mounted() {\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 75 | \u001b[39m        console\u001b[33m.\u001b[39mlog(\u001b[32m'Component mounted.'\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 76 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 77 | \u001b[39m}\u001b[0m\n    at Parser.raise (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:6344:17)\n    at Parser.unexpected (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:7659:16)\n    at Parser.expect (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:7645:28)\n    at Parser.parseObj (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:9134:14)\n    at Parser.parseExprAtom (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8774:21)\n    at Parser.parseExprSubscripts (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8413:23)\n    at Parser.parseMaybeUnary (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8393:21)\n    at Parser.parseExprOps (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8280:23)\n    at Parser.parseMaybeConditional (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8253:23)\n    at Parser.parseMaybeAssign (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:8200:21)\n    at Parser.parseExportDefaultExpression (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:10973:24)\n    at Parser.parseExport (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:10868:31)\n    at Parser.parseStatementContent (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:9892:27)\n    at Parser.parseStatement (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:9788:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:10364:25)\n    at Parser.parseBlockBody (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:10351:10)\n    at Parser.parseTopLevel (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:9717:10)\n    at Parser.parse (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:11233:17)\n    at parse (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\parser\\lib\\index.js:11269:38)\n    at parser (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:170:34)\n    at normalizeFile (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:138:11)\n    at runSync (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\Users\\olayinka.ibrahim\\Desktop\\whykae\\laravel_vue_app\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
 
 /***/ }),
 
@@ -53910,8 +53985,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-window.Form = Form;
 
+window.Form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertErrors"].name, vform__WEBPACK_IMPORTED_MODULE_0__["AlertErrors"]);
