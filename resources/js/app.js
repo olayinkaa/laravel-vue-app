@@ -12,6 +12,7 @@ import VueRouter from 'vue-router';
 // All components
 import DashboardComponent from './components/DashboardComponent.vue'
 import ProfileComponent from './components/ProfileComponent.vue'
+import DeveloperComponent from './components/DeveloperComponent.vue'
 import UsersComponent from './components/UsersComponent.vue'
 
 // All third party 
@@ -71,6 +72,7 @@ let routes = [
 
     { path: '/dashboard', component:DashboardComponent },
     { path: '/profile', component: ProfileComponent },
+    { path: '/developer', component: DeveloperComponent },
     { path: '/users', component: UsersComponent }
     // { path: '/profile', component: require('./components/Profile.vue') }
 
@@ -84,6 +86,22 @@ const router = new VueRouter({
     routes// short for `routes: routes`
 
   });
+
+
+  Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 
   // custom event ------------------------------------------------>
