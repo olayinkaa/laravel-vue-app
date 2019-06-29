@@ -19,13 +19,15 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Type</th>
+                                    <th>Created AT</th>
                                     <th>Modify</th>
                                 </tr>
-                                <tr v-for="user in users" :key="user.id">
-                                    <td>{{user.id}}</td>
+                                <tr v-for="(user, index) in users" :key="user.id">
+                                    <td>{{index+1}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
-                                    <td><span class="tag tag-success">{{user.type}}</span></td>
+                                    <td><span class="tag tag-success">{{user.type | UpText}}</span></td>
+                                    <td><span class="tag tag-success">{{user.created_at | FormatedDate}}</span></td>
                                     <td>
                                         <a href="">
                                             <i class="fas fa-edit fa-2x blue"></i>
@@ -51,7 +53,7 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form @submit.prevent="CreateUser" >
+                        <form @submit.prevent="createUser" >
                                 <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Name</label>
@@ -104,13 +106,13 @@
 
 <script>
 
-import axios from 'axios'
+    import AppMixins from '../mixin/AppMixins'
 
     export default {
 
         data(){
 
-            return{
+            return {
 
                 users: {},          
                 form: new Form({
@@ -125,25 +127,26 @@ import axios from 'axios'
             }
             
         },
-        methods : {
+        methods: {
 
-                LoadUsers(){
+                loadUsers(){
 
-                        axios.get('api/user').then((response=>{
-
-                            this.users = response.data
-                        });
+                        axios.get("api/user").then(({data})=>(this.users = data.data))
+                        
                 },
-                CreateUser(){
+
+                createUser(){
 
                     this.form.post('api/user');
                 }
-        },
+      
+
+        },      
         created() {
 
-            this.LoadUsers();
-        }
-
+            this.loadUsers();
+        },
+       mixins:[AppMixins]
 
 
 

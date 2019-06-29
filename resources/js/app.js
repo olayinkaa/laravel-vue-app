@@ -7,7 +7,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import moment from 'moment'
+import axios from 'axios'
 
+window.moment = moment
+window.axios = axios
 
 import { Form, HasError, AlertError, AlertErrors, AlertSuccess } from 'vform'
 
@@ -45,6 +49,17 @@ const router = new VueRouter({
     routes// short for `routes: routes`
 
   });
+
+// global filters
+
+/*
+Vue.filter('upText',function(value){
+
+  return value.charAt(0).toUpperCase() + value.slice(1)
+
+})
+
+*/
 
 /**
  * The following block of code may be used to automatically register your
