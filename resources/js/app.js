@@ -7,30 +7,65 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+import VueRouter from 'vue-router';
+// All components
+import DashboardComponent from './components/DashboardComponent.vue'
+import ProfileComponent from './components/ProfileComponent.vue'
+import UsersComponent from './components/UsersComponent.vue'
+
+// All third party 
 import moment from 'moment'
 import axios from 'axios'
+import VueProgressBar from 'vue-progressbar'
+import Swal from 'sweetalert2'
 
 window.moment = moment
 window.axios = axios
+window.Swal = Swal
 
 import { Form, HasError, AlertError, AlertErrors, AlertSuccess } from 'vform'
 
 
 window.Form = Form
 
+// toast for sweetalert
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  timer: 3000
+});
 
+window.Toast = Toast
+
+// vue progressbar---------------------------------------->
+
+const options = {
+  color: '#bffaf3',
+  failedColor: '#874b4b',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'left',
+  inverse: false
+}
+
+Vue.use(VueProgressBar, options)
+
+
+// vform ---------------------------------------------------->
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
-import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
-
-import DashboardComponent from './components/DashboardComponent.vue'
-import ProfileComponent from './components/ProfileComponent.vue'
-import UsersComponent from './components/UsersComponent.vue'
 
 let routes = [
 
@@ -49,6 +84,10 @@ const router = new VueRouter({
     routes// short for `routes: routes`
 
   });
+
+
+  // custom event ------------------------------------------------>
+  window.Fire = new Vue()
 
 // global filters
 

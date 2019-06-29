@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\User;
 class UserController extends Controller
 {
     /**
@@ -80,5 +80,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return ['message'=>'user deleted'];
     }
 }

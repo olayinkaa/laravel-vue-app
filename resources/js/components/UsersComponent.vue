@@ -32,7 +32,7 @@
                                         <a href="">
                                             <i class="fas fa-edit fa-2x blue"></i>
                                         </a>
-                                        <a href="">
+                                        <a href="" @click="deleteUser(user.id)">
                                             <i class="fas fa-trash fa-2x red"></i>
                                         </a>
                                     </td>
@@ -107,6 +107,7 @@
 <script>
 
     import AppMixins from '../mixin/AppMixins'
+import { setInterval } from 'timers';
 
     export default {
 
@@ -136,8 +137,63 @@
                 },
 
                 createUser(){
+                    this.$Progress.start();
+                    this.form.post('api/user')
+                        .then(()=>{
 
-                    this.form.post('api/user');
+                            Fire.$emit('AfterCreate')
+                            $('#addModal').modal('hide');
+                            Toast.fire({
+                                type: 'success',
+                                title: 'User Created successfully'
+                                });
+                            this.$Progress.finish();
+                        })
+                        .catch(err=>{
+
+                            console.log(err)
+                        })
+               
+                },
+                deleteUser(id){
+
+                        Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                       
+                       
+                       
+                                    if (result.value)
+                                    {
+                                // send request to server
+                                            axios.delete(`api/user/${id}`).then(()=>{
+                                                Swal.fire(
+                                                        'Deleted!',
+                                                        'User has been deleted.',
+                                                        'success'
+                                                    )
+                                            }).catch(()=>{
+
+                                                Swal.fire(
+                                                        'Failed!',
+                                                        'There was something wrong',
+                                                        'danger'
+                                                    )
+                                        })
+
+                                
+                                }
+
+
+                        })
+
+
                 }
       
 
@@ -145,6 +201,12 @@
         created() {
 
             this.loadUsers();
+            // setInterval(()=>this.loadUsers(),3000)
+            Fire.$on('AfterCreate',()=>{
+
+                this.loadUsers()
+            })
+
         },
        mixins:[AppMixins]
 
