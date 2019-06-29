@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <h3>USER TABLE</h3>
                         <div class="card-tools">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                            <button class="btn btn-primary" v-on:click="newModal">
                                 <i class="fas fa-plus"> ADD NEW USER</i>
                             </button>
                         </div>
@@ -29,11 +29,11 @@
                                     <td><span class="tag tag-success">{{user.type | UpText}}</span></td>
                                     <td><span class="tag tag-success">{{user.created_at | FormatedDate}}</span></td>
                                     <td>
-                                        <a href="">
-                                            <i class="fas fa-edit fa-2x blue"></i>
+                                        <a href="" @click.prevent="editModal(user)">
+                                            <i class="fas fa-edit  blue"></i>
                                         </a>
                                         <a href="" @click.prevent="deleteUser(user.id)">
-                                            <i class="fas fa-trash fa-2x red"></i>
+                                            <i class="fas fa-trash  red"></i>
                                         </a>
                                     </td>
                                 </tr>                
@@ -48,12 +48,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">NEW USER</h5>
+                            <h5 v-show="!editMode" class="modal-title" id="exampleModalLabel">NEW USER</h5>
+                            <h5 v-show="editMode" class="modal-title" id="exampleModalLabel">Update User's Info</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form @submit.prevent="createUser" >
+                        <form @submit.prevent="editMode ? updateUser():createUser()" >
                                 <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Name</label>
@@ -95,7 +96,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button v-show="!editMode" type="submit" class="btn btn-primary">Create</button>
+                                    <button  v-show="editMode" type="submit" class="btn btn-success">Update</button>
                                 </div>
                         </form>
                 </div>
@@ -115,21 +117,41 @@ import { setInterval } from 'timers';
 
             return {
 
+                editMode: true,
                 users: {},          
                 form: new Form({
 
-                    name:'',
-                    email:'',
-                    password:'',
-                    type:'',
-                    bio:'',
-                    photo:''
+                            id:'',
+                            name:'',
+                            email:'',
+                            password:'',
+                            type:'',
+                            bio:'',
+                            photo:''
+
                 })
             }
             
         },
         methods: {
 
+                newModal(){
+
+                        this.editMode = false;
+                        this.form.reset();
+                        $('#addModal').modal('show');
+
+
+                },
+                editModal(user){
+
+                        this.editMode = true;
+                        this.form.clear();
+                        $('#addModal').modal('show');
+                        this.form.fill(user);
+
+
+                },
                 loadUsers(){
 
                         axios.get("api/user").then(({data})=>(this.users = data.data))
@@ -151,9 +173,32 @@ import { setInterval } from 'timers';
                         })
                         .catch(err=>{
 
-                            console.log(err)
+                            this.$Progress.fail();
+
                         })
                
+                },
+                updateUser(){
+
+                            this.$Progress.start();
+                            this.form.put('api/user/'+this.form.id).then(()=>{
+
+                                        $('#addModal').modal('hide');
+                                         Swal.fire(
+                                                        'Updated!',
+                                                        'User data has been updated successfully.',
+                                                        'success'
+                                                    )
+
+                                        Fire.$emit('ReloadUsersPage');                                        
+                                        this.$Progress.finish();
+
+                            }).catch(()=>{
+
+
+                                    this.$Progress.fail();
+
+                            })
                 },
                 deleteUser(id){
 
@@ -172,7 +217,7 @@ import { setInterval } from 'timers';
                                     if (result.value)
                                     {
                                 // send request to server
-                                            this.form.delete(`api/user/${id}`).then(()=>{
+                                            axios.delete(`api/user/${id}`).then(()=>{
                                                 Swal.fire(
                                                         'Deleted!',
                                                         'User has been deleted.',

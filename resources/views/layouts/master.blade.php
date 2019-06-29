@@ -248,10 +248,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content mt-4">
       <div class="container-fluid">
           <!-- content goes here -->
+          <vue-progress-bar></vue-progress-bar>
 
             <router-view></router-view>
 
-            <vue-progress-bar></vue-progress-bar>
             
       </div>
     </div>
