@@ -32,7 +32,7 @@
                                         <a href="">
                                             <i class="fas fa-edit fa-2x blue"></i>
                                         </a>
-                                        <a href="" @click="deleteUser(user.id)">
+                                        <a href="" @click.prevent="deleteUser(user.id)">
                                             <i class="fas fa-trash fa-2x red"></i>
                                         </a>
                                     </td>
@@ -141,7 +141,7 @@ import { setInterval } from 'timers';
                     this.form.post('api/user')
                         .then(()=>{
 
-                            Fire.$emit('AfterCreate')
+                            Fire.$emit('ReloadUsersPage')
                             $('#addModal').modal('hide');
                             Toast.fire({
                                 type: 'success',
@@ -172,12 +172,14 @@ import { setInterval } from 'timers';
                                     if (result.value)
                                     {
                                 // send request to server
-                                            axios.delete(`api/user/${id}`).then(()=>{
+                                            this.form.delete(`api/user/${id}`).then(()=>{
                                                 Swal.fire(
                                                         'Deleted!',
                                                         'User has been deleted.',
                                                         'success'
                                                     )
+                                            Fire.$emit('ReloadUsersPage')
+                                                
                                             }).catch(()=>{
 
                                                 Swal.fire(
@@ -202,7 +204,7 @@ import { setInterval } from 'timers';
 
             this.loadUsers();
             // setInterval(()=>this.loadUsers(),3000)
-            Fire.$on('AfterCreate',()=>{
+            Fire.$on('ReloadUsersPage',()=>{
 
                 this.loadUsers()
             })

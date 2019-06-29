@@ -1952,7 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
-        Fire.$emit('AfterCreate');
+        Fire.$emit('ReloadUsersPage');
         $('#addModal').modal('hide');
         Toast.fire({
           type: 'success',
@@ -1965,6 +1965,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteUser: function deleteUser(id) {
+      var _this3 = this;
+
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -1976,8 +1978,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           // send request to server
-          axios["delete"]("api/user/".concat(id)).then(function () {
+          _this3.form["delete"]("api/user/".concat(id)).then(function () {
             Swal.fire('Deleted!', 'User has been deleted.', 'success');
+            Fire.$emit('ReloadUsersPage');
           })["catch"](function () {
             Swal.fire('Failed!', 'There was something wrong', 'danger');
           });
@@ -1986,12 +1989,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     this.loadUsers(); // setInterval(()=>this.loadUsers(),3000)
 
-    Fire.$on('AfterCreate', function () {
-      _this3.loadUsers();
+    Fire.$on('ReloadUsersPage', function () {
+      _this4.loadUsers();
     });
   },
   mixins: [_mixin_AppMixins__WEBPACK_IMPORTED_MODULE_0__["default"]] // end-----------------
@@ -59543,6 +59546,7 @@ var render = function() {
                           attrs: { href: "" },
                           on: {
                             click: function($event) {
+                              $event.preventDefault()
                               return _vm.deleteUser(user.id)
                             }
                           }
@@ -74770,12 +74774,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_UsersComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/UsersComponent.vue */ "./resources/js/components/UsersComponent.vue");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
-/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_8__);
 /**
@@ -74796,13 +74800,13 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
 window.moment = moment__WEBPACK_IMPORTED_MODULE_4___default.a;
-window.axios = axios__WEBPACK_IMPORTED_MODULE_5___default.a;
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a;
+window.axios = axios__WEBPACK_IMPORTED_MODULE_7___default.a;
 
 window.Form = vform__WEBPACK_IMPORTED_MODULE_8__["Form"]; // toast for sweetalert
 
-var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.mixin({
+var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.mixin({
   toast: true,
   position: 'center',
   showConfirmButton: false,
@@ -74823,7 +74827,7 @@ var options = {
   location: 'left',
   inverse: false
 };
-Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_6___default.a, options); // vform ---------------------------------------------------->
+Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_5___default.a, options); // vform ---------------------------------------------------->
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_8__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_8__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_8__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_8__["AlertError"]);

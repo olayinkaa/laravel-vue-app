@@ -16,13 +16,13 @@ import UsersComponent from './components/UsersComponent.vue'
 
 // All third party 
 import moment from 'moment'
-import axios from 'axios'
 import VueProgressBar from 'vue-progressbar'
 import Swal from 'sweetalert2'
+import axios from 'axios'
 
+window.Swal = Swal
 window.moment = moment
 window.axios = axios
-window.Swal = Swal
 
 import { Form, HasError, AlertError, AlertErrors, AlertSuccess } from 'vform'
 
