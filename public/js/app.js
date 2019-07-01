@@ -2141,20 +2141,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateInfo: function updateInfo() {
-      this.form.put('api/profile').then()["catch"]();
-    },
-    updateProfile: function updateProfile(e) {
       var _this2 = this;
 
-      var file = e.target.files[0];
+      this.$Progress.start();
+      this.form.put('api/profile').then(function () {
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
+    },
+    updateProfile: function updateProfile(e) {
+      var _this3 = this;
+
+      var file = e.target.files[0]; // console.log(file)
+
       var reader = new FileReader();
 
-      reader.onloadend = function (file) {
-        // console.log('RESULT', reader.result)
-        _this2.form.photo = reader.result;
-      };
+      if (file['size'] < 2111775) {
+        reader.onloadend = function (file) {
+          // console.log('RESULT', reader.result)
+          _this3.form.photo = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire('error!', 'You are uploading a large file', 'danger');
+      }
     }
   }
 });
@@ -61032,7 +61044,7 @@ var render = function() {
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-danger",
+                                      staticClass: "btn btn-success",
                                       attrs: { type: "submit" },
                                       on: {
                                         click: function($event) {
