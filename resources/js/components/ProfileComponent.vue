@@ -33,11 +33,11 @@
                                     <div class="card-body box-profile">
                                         <div class="text-center">
                                         <img class="profile-user-img img-fluid img-circle"
-                                            src="/img/user4-128x128.jpg"
+                                            :src="getProfilePhoto()"
                                             alt="User profile picture">
                                         </div>
 
-                                        <h3 class="profile-username text-center">Nina Mcintire</h3>
+                                        <h3 class="profile-username text-center">{{this.form.name}}</h3>
 
                                         <p class="text-muted text-center">Software Engineer</p>
 
@@ -347,6 +347,12 @@
                     axios.get('api/profile').then(({data})=>(this.form.fill(data)))
         },
         methods:{
+
+                    getProfilePhoto(){
+
+                                    let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                                    return photo;
+                                },
                     updateInfo(){
 
                             this.$Progress.start();                            
@@ -374,24 +380,25 @@
                                 // console.log(file)
                                 let reader = new FileReader();
 
-                                if(file['size'] < 2111775){
-                                        reader.onloadend = (file)=>{
+                                let limit = 1000 * 1024 * 2;
+                                if(file['size'] > limit){
+
+                                    Swal.fire({
+                                            type: 'error',
+                                            title: 'Oops...',
+                                            text: 'You are uploading a large file',
+                                        })
+                                    return false;
+                                       
+                                }
+                                // ---------------------------------------------------------------------------
+                                 reader.onloadend = (file)=>{
                                             // console.log('RESULT', reader.result)
                                             this.form.photo = reader.result
                                         
-                                        }
-                                        reader.readAsDataURL(file)
-
-
                                 }
-                                else
-                                {
-                                      Swal.fire(
-                                                    'error!',
-                                                    'Image should be less <= 2MB',
-                                                    'warning'
-                                                )
-                                }
+                                reader.readAsDataURL(file)
+                              
                                
                     }
         }

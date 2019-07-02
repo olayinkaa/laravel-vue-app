@@ -2155,6 +2155,10 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    getProfilePhoto: function getProfilePhoto() {
+      var photo = this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
+      return photo;
+    },
     updateInfo: function updateInfo() {
       var _this2 = this;
 
@@ -2173,17 +2177,24 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0]; // console.log(file)
 
       var reader = new FileReader();
+      var limit = 1000 * 1024 * 2;
 
-      if (file['size'] < 2111775) {
-        reader.onloadend = function (file) {
-          // console.log('RESULT', reader.result)
-          _this3.form.photo = reader.result;
-        };
+      if (file['size'] > limit) {
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      } // ---------------------------------------------------------------------------
 
-        reader.readAsDataURL(file);
-      } else {
-        Swal.fire('error!', 'Image should be less <= 2MB', 'warning');
-      }
+
+      reader.onloadend = function (file) {
+        // console.log('RESULT', reader.result)
+        _this3.form.photo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 });
@@ -60841,15 +60852,43 @@ var render = function() {
         _c("section", {}, [
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "col-md-3" }, [
+                _c("div", { staticClass: "card card-primary card-outline" }, [
+                  _c("div", { staticClass: "card-body box-profile" }, [
+                    _c("div", { staticClass: "text-center" }, [
+                      _c("img", {
+                        staticClass: "profile-user-img img-fluid img-circle",
+                        attrs: {
+                          src: _vm.getProfilePhoto(),
+                          alt: "User profile picture"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "profile-username text-center" }, [
+                      _vm._v(_vm._s(this.form.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted text-center" }, [
+                      _vm._v("Software Engineer")
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(3)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
                 _c("div", { staticClass: "card" }, [
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
                     _c("div", { staticClass: "tab-content" }, [
-                      _vm._m(3),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -61144,116 +61183,96 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "card card-primary card-outline" }, [
-        _c("div", { staticClass: "card-body box-profile" }, [
-          _c("div", { staticClass: "text-center" }, [
-            _c("img", {
-              staticClass: "profile-user-img img-fluid img-circle",
-              attrs: {
-                src: "/img/user4-128x128.jpg",
-                alt: "User profile picture"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "profile-username text-center" }, [
-            _vm._v("Nina Mcintire")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted text-center" }, [
-            _vm._v("Software Engineer")
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "list-group list-group-unbordered mb-3" }, [
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Followers")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("1,322")])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Following")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("543")])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Friends")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("13,287")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            { staticClass: "btn btn-primary btn-block", attrs: { href: "#" } },
-            [_c("b", [_vm._v("Follow")])]
-          )
-        ])
+    return _c("ul", { staticClass: "list-group list-group-unbordered mb-3" }, [
+      _c("li", { staticClass: "list-group-item" }, [
+        _c("b", [_vm._v("Followers")]),
+        _vm._v(" "),
+        _c("a", { staticClass: "float-right" }, [_vm._v("1,322")])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card card-primary" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
+      _c("li", { staticClass: "list-group-item" }, [
+        _c("b", [_vm._v("Following")]),
+        _vm._v(" "),
+        _c("a", { staticClass: "float-right" }, [_vm._v("543")])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [
+        _c("b", [_vm._v("Friends")]),
+        _vm._v(" "),
+        _c("a", { staticClass: "float-right" }, [_vm._v("13,287")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "btn btn-primary btn-block", attrs: { href: "#" } },
+      [_c("b", [_vm._v("Follow")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card card-primary" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("strong", [
+          _c("i", { staticClass: "fa fa-book mr-1" }),
+          _vm._v(" Education")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-book mr-1" }),
-            _vm._v(" Education")
-          ]),
+        _c("p", { staticClass: "text-muted" }, [
+          _vm._v(
+            "\n                                    B.S. in Computer Science from the University of Tennessee at Knoxville\n                                    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "fa fa-map-marker mr-1" }),
+          _vm._v(" Location")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [_vm._v("Malibu, California")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "fa fa-pencil mr-1" }),
+          _vm._v(" Skills")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [
+          _c("span", { staticClass: "tag tag-danger" }, [_vm._v("UI Design")]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "\n                                    B.S. in Computer Science from the University of Tennessee at Knoxville\n                                    "
-            )
-          ]),
+          _c("span", { staticClass: "tag tag-success" }, [_vm._v("Coding")]),
           _vm._v(" "),
-          _c("hr"),
+          _c("span", { staticClass: "tag tag-info" }, [_vm._v("Javascript")]),
           _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-map-marker mr-1" }),
-            _vm._v(" Location")
-          ]),
+          _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v("Malibu, California")
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-pencil mr-1" }),
-            _vm._v(" Skills")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _c("span", { staticClass: "tag tag-danger" }, [
-              _vm._v("UI Design")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-success" }, [_vm._v("Coding")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-info" }, [_vm._v("Javascript")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-primary" }, [_vm._v("Node.js")])
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-file-text-o mr-1" }),
-            _vm._v(" Notes")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
-            )
-          ])
+          _c("span", { staticClass: "tag tag-primary" }, [_vm._v("Node.js")])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "fa fa-file-text-o mr-1" }),
+          _vm._v(" Notes")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [
+          _vm._v(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
+          )
         ])
       ])
     ])
