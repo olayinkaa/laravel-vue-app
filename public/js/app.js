@@ -61085,7 +61085,7 @@ var render = function() {
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-success",
+                                      staticClass: "btn btn-success btn-block",
                                       attrs: { type: "submit" },
                                       on: {
                                         click: function($event) {
