@@ -355,10 +355,13 @@
                                 },
                     updateInfo(){
 
-                            this.$Progress.start();                            
+                            this.$Progress.start();      
+                            if(this.form.password == ''){
+                                        this.form.password = undefined;
+                             }                      
                             this.form.put('api/profile').then(()=>{
 
-                                     this.$Progress.finish();
+                                        this.$Progress.finish();
                                         Swal.fire(
                                                     'UPDATED!',
                                                     'Profile successfully updated',
@@ -380,7 +383,7 @@
                                 // console.log(file)
                                 let reader = new FileReader();
 
-                                let limit = 1000 * 1024 * 2;
+                                let limit = 1024 * 1024 * 2;
                                 if(file['size'] > limit){
 
                                     Swal.fire({

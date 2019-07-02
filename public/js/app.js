@@ -2163,6 +2163,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
+
+      if (this.form.password == '') {
+        this.form.password = undefined;
+      }
+
       this.form.put('api/profile').then(function () {
         _this2.$Progress.finish();
 
@@ -2177,7 +2182,7 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0]; // console.log(file)
 
       var reader = new FileReader();
-      var limit = 1000 * 1024 * 2;
+      var limit = 1024 * 1024 * 2;
 
       if (file['size'] > limit) {
         Swal.fire({
