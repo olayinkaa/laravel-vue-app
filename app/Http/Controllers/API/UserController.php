@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         // $this->authorize('isAdmin');
         if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')) {
-            return User::latest()->paginate(2);
+            return User::latest()->paginate(15);
         }
     }
 
