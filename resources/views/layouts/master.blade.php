@@ -192,6 +192,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <!--  -->
+          
+          @if( Gate::check('isAdmin') || Gate::check('isAuthor') )
           <li class="nav-item has-treeview menu-open">
             <router-link to="#" class="nav-link">
               <i class="nav-icon fas fa-cog green"></i>
@@ -207,14 +209,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Users</p>
                 </router-link>
               </li>
-              @can('isAdmin')
               <li class="nav-item">
                 <router-link to="/developer" class="nav-link">
                   <i class="fas fa-user nav-icon"></i>
                   <p>Developer</p>
                 </router-link>
               </li>
-              @endcan
+              @endif
               <!-- <li class="nav-item">
                 <router-link to="#" class="nav-link">
                   <i class="fas fa-circle-o nav-icon"></i>
@@ -294,9 +295,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
 <!-- <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <!-- <script src="dist/js/adminlte.min.js"></script> -->
+@auth
+
+<script>
+    window.user = @json(auth()->user())
+</script>
+@endauth
+
 
 <script src="/js/app.js"></script>
 <!-- <script src=" {{ asset('js/app.js') }} "></script> -->
 <!-- <script src=" {{ mix('js/app.js') }} "></script> -->
+
+
+
+
+
 </body>
 </html>

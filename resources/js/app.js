@@ -9,11 +9,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
+
 // All components
 import DashboardComponent from './components/DashboardComponent.vue'
 import ProfileComponent from './components/ProfileComponent.vue'
 import DeveloperComponent from './components/DeveloperComponent.vue'
 import UsersComponent from './components/UsersComponent.vue'
+import NotFoundComponent from './components/NotFoundComponent.vue'
 
 // All third party 
 import moment from 'moment'
@@ -21,6 +23,11 @@ import VueProgressBar from 'vue-progressbar'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
+// front-end authoriization configuration
+import Gate from "./gate";
+Vue.prototype.$gate = new Gate(window.user);
+
+// 
 window.Swal = Swal
 window.moment = moment
 window.axios = axios
@@ -51,9 +58,11 @@ const options = {
     opacity: '0.6s',
     termination: 300
   },
+
   autoRevert: true,
   location: 'top',
   inverse: false
+
 }
 
 Vue.use(VueProgressBar, options)
@@ -73,7 +82,8 @@ let routes = [
     { path: '/dashboard', component:DashboardComponent },
     { path: '/profile', component: ProfileComponent },
     { path: '/developer', component: DeveloperComponent },
-    { path: '/users', component: UsersComponent }
+    { path: '/users', component: UsersComponent },
+    { path: '*', component: NotFoundComponent }
     // { path: '/profile', component: require('./components/Profile.vue') }
 
   ];
@@ -102,6 +112,12 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+
+Vue.component(
+  'not-found',
+  require('./components/NotFoundComponent.vue').default
+);
+
 
 
   // custom event ------------------------------------------------>

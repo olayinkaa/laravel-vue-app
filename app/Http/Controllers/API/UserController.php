@@ -20,8 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        return User::latest()->paginate(10);
+        // $this->authorize('isAdmin');
+        if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')) {
+            return User::latest()->paginate(20);
+        }
     }
 
     /**
@@ -89,7 +91,7 @@ class UserController extends Controller
             // 'photo' => 'image:64|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'password' => 'sometimes|required|min:6'
-            
+
             ]);
 
 
@@ -157,6 +159,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+
+        $this->authorize('isAdmin');
+
         $user = User::findOrFail($id);
 
         $user->delete();

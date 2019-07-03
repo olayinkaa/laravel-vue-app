@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" v-if="$gate.isAdminOrAuthor()" >
                     <div class="card-header">
                         <h3>USER TABLE</h3>
                         <div class="card-tools">
@@ -69,6 +69,9 @@
                                                 <has-error :form="form" field="email"></has-error>
                                             </div>
                                             <div class="form-group">
+                                                <input  type="hidden" v-model="form.photo" class="form-control" name="photo" >
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Bio</label>
                                                 <textarea v-model="form.bio"  name="bio" placeholder="Short bio for user (optional)"
                                                     class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
@@ -127,7 +130,7 @@ import { setInterval } from 'timers';
                             password:'',
                             type:'',
                             bio:'',
-                            photo:''
+                            photo:'profile.png'
 
                 })
             }
@@ -154,11 +157,16 @@ import { setInterval } from 'timers';
                 },
                 loadUsers(){
 
-                        axios.get("api/user").then(({data})=>(this.users = data.data))
+                        if(this.$gate.isAdminOrAuthor()){
+
+                            axios.get("api/user").then(({data})=>(this.users = data.data))
+
+                        }
                         
                 },
 
                 createUser(){
+                    
                     this.$Progress.start();
                     this.form.post('api/user')
                         .then(()=>{
