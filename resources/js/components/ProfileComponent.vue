@@ -247,14 +247,14 @@
                                                     <has-error :form="form" field="email"></has-error>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="inputType" class="col-sm-2 control-label">Type of User</label>
 
                                                 <div class="col-sm-10">
-                                                    <input type="text" v-model="form.type" class="form-control" id="inputType" >
+                                                    <input type="text" v-model="form.type" class="form-control" id="inputType" disabled>
                                                     <has-error :form="form" field="name"></has-error>
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <div class="form-group">
                                                 <label for="inputBio" class="col-sm-2 control-label">Bio</label>
 
@@ -265,10 +265,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputProfilePhoto" class="col-sm-4 control-label">Profile Photo</label>
+                                                <label for="inputProfilePhoto" class="col-sm-4 control-label" >Profile Photo</label>
 
                                                 <div class="col-sm-8">
-                                                <input type="file" class="form-control-file" @change="updateProfile" id="inputProfilePhoto" >
+                                                <input type="file" class="form-control-file" @change="updateProfile" id="inputProfilePhoto" name="photo" >
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -278,15 +278,6 @@
                                                     <input type="text" v-model="form.password" class="form-control" id="inputPassword" >
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                <div class="checkbox">
-                                                    <label>
-                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                    </label>
-                                                </div>
-                                                </div>
-                                            </div> -->
                                             <div class="form-group">
                                                 <div class="col-sm-offset-2 col-sm-10">
                                                 <button type="submit" @click.prevent="updateInfo" class="btn btn-success btn-block">Update</button>
@@ -323,28 +314,29 @@
 
         data() {
 
-            return {
+                    return {
 
-                form: new Form({
+                        form: new Form({
 
-                            id:'',
-                            name:'',
-                            email:'',
-                            password:'',
-                            type:'',
-                            bio:'',
-                            photo:''
+                                    id:'',
+                                    name:'',
+                                    email:'',
+                                    password:'',
+                                    type:'',
+                                    bio:'',
+                                    photo:''
 
-                })
+                        })
 
-            }
+                    }
         },
         mounted() {
-            console.log('Component mounted.')
+                    // console.log('Component mounted.')
         },
         created(){
 
-                    axios.get('api/profile').then(({data})=>(this.form.fill(data)))
+                        this.loadProfile();
+                        Fire.$on('ReloadProfilePage',()=> this.loadProfile() );
         },
         methods:{
 
@@ -352,7 +344,13 @@
 
                                     let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
                                     return photo;
-                                },
+                    },
+                    loadProfile(){
+
+                            axios.get('api/profile').then(({data})=>(this.form.fill(data)))
+
+
+                    },
                     updateInfo(){
 
                             this.$Progress.start();      
@@ -362,15 +360,16 @@
                             this.form.put('api/profile').then(()=>{
 
                                         this.$Progress.finish();
-                                        Swal.fire(
-                                                    'UPDATED!',
-                                                    'Profile successfully updated',
-                                                    'success'
-                                                )
+                                        Fire.$emit('ReloadProfilePage')
 
+                                        // Swal.fire(
+                                        //             'UPDATED!',
+                                        //             'Profile successfully updated',
+                                        //             'success'
+                                        //         )
+                                        
 
-                            })
-                            .catch(()=>{
+                            }).catch(()=>{
 
                                     this.$Progress.fail();
 
@@ -378,32 +377,25 @@
 
                     },
                     updateProfile(e){
+                            let file = e.target.files[0];
+                            let reader = new FileReader();
 
-                                let file = e.target.files[0];
-                                // console.log(file)
-                                let reader = new FileReader();
+                            let limit = 1024 * 1024 * 2;
+                            if(file['size'] > limit)
+                            {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Oops...',
+                                    text: 'You are uploading a large file',
+                                })
+                                return false;
+                            }
 
-                                let limit = 1024 * 1024 * 2;
-                                if(file['size'] > limit){
-
-                                    Swal.fire({
-                                            type: 'error',
-                                            title: 'Oops...',
-                                            text: 'You are uploading a large file',
-                                        })
-                                    return false;
-                                       
-                                }
-                                // ---------------------------------------------------------------------------
-                                 reader.onloadend = (file)=>{
-                                            // console.log('RESULT', reader.result)
-                                            this.form.photo = reader.result
-                                        
-                                }
-                                reader.readAsDataURL(file)
-                              
-                               
-                    }
+                            reader.onloadend = (file) => {
+                                this.form.photo = reader.result;
+                            }
+                            reader.readAsDataURL(file);
+            }
         }
     }
 </script>

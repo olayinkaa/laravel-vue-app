@@ -2120,15 +2120,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2143,15 +2134,14 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  mounted: function mounted() {// console.log('Component mounted.')
   },
   created: function created() {
     var _this = this;
 
-    axios.get('api/profile').then(function (_ref) {
-      var data = _ref.data;
-      return _this.form.fill(data);
+    this.loadProfile();
+    Fire.$on('ReloadProfilePage', function () {
+      return _this.loadProfile();
     });
   },
   methods: {
@@ -2159,8 +2149,16 @@ __webpack_require__.r(__webpack_exports__);
       var photo = this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
       return photo;
     },
-    updateInfo: function updateInfo() {
+    loadProfile: function loadProfile() {
       var _this2 = this;
+
+      axios.get('api/profile').then(function (_ref) {
+        var data = _ref.data;
+        return _this2.form.fill(data);
+      });
+    },
+    updateInfo: function updateInfo() {
+      var _this3 = this;
 
       this.$Progress.start();
 
@@ -2169,18 +2167,21 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.form.put('api/profile').then(function () {
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
-        Swal.fire('UPDATED!', 'Profile successfully updated', 'success');
+        Fire.$emit('ReloadProfilePage'); // Swal.fire(
+        //             'UPDATED!',
+        //             'Profile successfully updated',
+        //             'success'
+        //         )
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     updateProfile: function updateProfile(e) {
-      var _this3 = this;
+      var _this4 = this;
 
-      var file = e.target.files[0]; // console.log(file)
-
+      var file = e.target.files[0];
       var reader = new FileReader();
       var limit = 1024 * 1024 * 2;
 
@@ -2191,12 +2192,10 @@ __webpack_require__.r(__webpack_exports__);
           text: 'You are uploading a large file'
         });
         return false;
-      } // ---------------------------------------------------------------------------
-
+      }
 
       reader.onloadend = function (file) {
-        // console.log('RESULT', reader.result)
-        _this3.form.photo = reader.result;
+        _this4.form.photo = reader.result;
       };
 
       reader.readAsDataURL(file);
@@ -61014,6 +61013,58 @@ var render = function() {
                                 "label",
                                 {
                                   staticClass: "col-sm-2 control-label",
+                                  attrs: { for: "inputType" }
+                                },
+                                [_vm._v("Type of User")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-10" },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.type,
+                                        expression: "form.type"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "text",
+                                      id: "inputType",
+                                      disabled: ""
+                                    },
+                                    domProps: { value: _vm.form.type },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "type",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: { form: _vm.form, field: "name" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-sm-2 control-label",
                                   attrs: { for: "inputBio" }
                                 },
                                 [_vm._v("Bio")]
@@ -61075,7 +61126,8 @@ var render = function() {
                                   staticClass: "form-control-file",
                                   attrs: {
                                     type: "file",
-                                    id: "inputProfilePhoto"
+                                    id: "inputProfilePhoto",
+                                    name: "photo"
                                   },
                                   on: { change: _vm.updateProfile }
                                 })

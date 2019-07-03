@@ -86,7 +86,10 @@ class UserController extends Controller
             'name' => 'required|string|max:191',
             'bio' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+            // 'photo' => 'image:64|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
             'password' => 'sometimes|required|min:6'
+            
             ]);
 
 

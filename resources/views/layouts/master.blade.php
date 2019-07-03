@@ -207,18 +207,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Users</p>
                 </router-link>
               </li>
+              @can('isAdmin')
               <li class="nav-item">
                 <router-link to="/developer" class="nav-link">
                   <i class="fas fa-user nav-icon"></i>
                   <p>Developer</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              @endcan
+              <!-- <li class="nav-item">
                 <router-link to="#" class="nav-link">
                   <i class="fas fa-circle-o nav-icon"></i>
                   <p>Inactive Page</p>
                 </router-link>
-              </li>
+              </li> -->
             </ul>
           </li>
           <!--  -->
