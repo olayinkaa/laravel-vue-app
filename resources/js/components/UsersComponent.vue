@@ -22,7 +22,7 @@
                                     <th>Created AT</th>
                                     <th>Modify</th>
                                 </tr>
-                                <tr v-for="(user, index) in users" :key="user.id">
+                                <tr v-for="(user, index) in users.data" :key="user.id">
                                     <td>{{index+1}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
@@ -39,8 +39,23 @@
                                 </tr>                
                             </table>
                     </div>
+                    <div class="card-footer">
+                            <pagination :data="users" 
+                            @pagination-change-page="getResults">
+
+                            </pagination>
+                    </div>
+                    <!-- <pagination :data="users"  @pagination-change-page="getResults" >
+                        <span slot="prev-nav">&lt; Previous</span>
+                        <span slot="next-nav">Next &gt;</span>
+                    </pagination> -->
                 </div>
             </div>
+        </div>
+        <!-- not found page for users -->
+        
+        <div v-if="!$gate.isAdminOrAuthor()">
+            <not-found></not-found>
         </div>
 
                     <!-- Modal -->
@@ -138,6 +153,13 @@ import { setInterval } from 'timers';
         },
         methods: {
 
+             getResults(page = 1) {
+                        axios.get('api/user?page=' + page)
+                            .then(response => {
+                                this.users = response.data;
+                            });
+                },
+
                 newModal(){
 
                         this.editMode = false;
@@ -159,7 +181,8 @@ import { setInterval } from 'timers';
 
                         if(this.$gate.isAdminOrAuthor()){
 
-                            axios.get("api/user").then(({data})=>(this.users = data.data))
+                            // axios.get("api/user").then(({data})=>(this.users = data.data))
+                            axios.get("api/user").then(({data})=>(this.users = data))
 
                         }
                         

@@ -34,6 +34,8 @@ window.axios = axios
 
 import { Form, HasError, AlertError, AlertErrors, AlertSuccess } from 'vform'
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 window.Form = Form
 
