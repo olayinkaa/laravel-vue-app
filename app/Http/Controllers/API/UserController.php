@@ -187,18 +187,9 @@ class UserController extends Controller
     }
 
 
-    public function getTotalRecord(){
+    public function getTotalAdmin(){
 
-            $admin = User::where('type','admin')->get()->count();
-            $author = User::where('type','author')->get()->count();
-            $user = User::where('type','user')->get()->count();
-
-            return [
-
-                'admin'=> $admin,
-                'author'=> $author,
-                'user'=> $user
-            ];
+            return User::where('type','admin')->get()->count();
     }
 
 }

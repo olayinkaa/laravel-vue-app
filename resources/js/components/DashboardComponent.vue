@@ -5,7 +5,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3></h3>
+                <h3>{{countAdmin}}</h3>
 
                 <p>TOTAL ADMIN</p>
               </div>
@@ -74,26 +74,25 @@
         },
         created(){
 
-                console.log(this.getTotalRecord)
-                // this.getTotalRecord()
+                this.getTotalAdmin()
         },
 
         data(){
 
             return{
 
-                countAdmin:[]
+                countAdmin:null
             }
         },
 
         methods: {
 
-                getTotalRecord(){
+                getTotalAdmin(){
 
-                        axios.get('api/recordCount')
+                        axios.get('api/adminCount')
                             .then(({data})=>{
 
-                                this.countAdmin = data.data
+                                this.countAdmin = data
                             })
                             
                 }
