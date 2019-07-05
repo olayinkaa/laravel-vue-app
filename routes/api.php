@@ -21,3 +21,4 @@ Route::apiResource('user', 'API\UserController');
 Route::get('profile','API\UserController@profile')->name('user.profile');
 Route::get('findUser','API\UserController@search')->name('user.search');
 Route::put('profile','API\UserController@updateProfile')->name('user.updateProfile');
+Route::get('recordCount','API\UserController@getTotalRecord');
